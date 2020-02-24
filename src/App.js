@@ -42,8 +42,22 @@ class App extends React.Component {
   }
 
   render() {
+    const { data, loading, fileCount, totalSize } = this.state
     return (
-      <div className='App'>
+      <div className="container">
+        <div className="wrapper">
+          <h1>File Browser</h1>
+          {loading ? <div class="loader">Loading...</div> :
+            <div>
+              {!loading && data.length < 1 ? <p>No Files Found!</p> : null}
+              <hr></hr>
+              <div className="totals">
+                <p>Total Files: {fileCount}</p>
+                <p>Total Filesize: {`${(totalSize / 1000000).toFixed(3)} MB`}</p>
+              </div>
+            </div>
+          }
+        </div>
       </div>
     )
   }
