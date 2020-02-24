@@ -23,10 +23,22 @@ class App extends React.Component {
         }
         return 0
       })
+      this.calculateTotals(response.data.data)
       this.setState({ loading: false, data: response.data.data })
     } catch (err) {
       this.setState({ loading: false, error: err })
     }
+  }
+
+  calculateTotals(data) {
+    data.map(item => {
+      if (item.type === "file") {
+        this.setState((prevState) => ({ fileCount: prevState.fileCount + 1, totalSize: prevState.totalSize + item.size }))
+      }
+      if (item.type === "folder") {
+        this.calculateTotals(item.children)
+      }
+    })
   }
 
   render() {
