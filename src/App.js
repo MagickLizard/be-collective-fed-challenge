@@ -1,22 +1,31 @@
 import React from 'react'
-import GetFileData from './api/getFiles'
+import Axios from 'axios'
+
 class App extends React.Component {
   state = {
-    files: [],
-    filesAndDirectories: [],
-    directories: [],
-    isLoading: true,
+    data: [],
+    totalSize: 0,
+    fileCount: 0,
+    selectedFolders: {},
+    loading: true
   }
+
   async componentDidMount() {
+    this.setState({ loading: true })
     try {
-      await GetFileData.get('')
-        .then(response => {
-          this.setState({
-            filesAndDirectories: response.data.data, isLoading:false
-          })
-        })
+      const response = await Axios.get('https://chal-locdrmwqia.now.sh/')
+      response.data.data.sort(function (a, b) {
+        if (a.type === "folder") {
+          return -1
+        }
+        if (b.type === "file") {
+          return 1
+        }
+        return 0
+      })
+      this.setState({ loading: false, data: response.data.data })
     } catch (err) {
-      console.log('error:', err)
+      this.setState({ loading: false, error: err })
     }
   }
 
