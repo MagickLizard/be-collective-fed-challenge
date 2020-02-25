@@ -8,7 +8,7 @@ const FileIcons = ({ selected, label, type, size, onChange }) => {
     <div>
      <span className={`fa files__icon ${selected ? 'fa-chevron-down' : 'fa-chevron-right'} `} onClick={() => onChange(!selected)}/>
      <span className={`fa files__icon fa-folder`}/>
-     <span>{label}</span>
+     <span className="files__label">{label}</span>
     </div>
    ) 
   }
@@ -18,13 +18,13 @@ const FileIcons = ({ selected, label, type, size, onChange }) => {
    return (
     <div>
      <span className={`fa files__icon fa-file`}/>
-     <span>{label} {`${(size / 1000).toFixed(3)} KB`}</span>
+     <span className="files__label">{label} {`${(size / 1000).toFixed(3)} KB`}</span>
     </div>
    )
   }
  }
  return (
-     <div>
+     <div className="files">
       {renderItem()}     
    </div>
  )

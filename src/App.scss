@@ -1,18 +1,24 @@
+$grey: #778897;
 body {
   font-size: 14px;
   font-family: 'Roboto', sans-serif;
   background: white;
-  color: #778897;
+  color: $grey;
+}
+h1,hr {
+  color: $grey;
 }
 
 h1 {
-  color: #778897;
   margin-bottom: 30px;
 }
 
 hr {
   margin-top: 30px;
-  color: #778897;
+}
+
+ul {
+  padding-inline-start: 20px;
 }
 
 .container {
@@ -24,11 +30,27 @@ hr {
   width: 95%;
   position: relative;
   border-radius: 10px;
+  .files {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+    &__label {
+      font-size: 14px;
+      font-weight: 500;
+      color: $grey;
+    }
+    &__icon {
+      font-size: 16px;
+      padding-right: 10px;
+      cursor: pointer;
+      color: $grey;
+    }
+  }
 
   .totals {
     font-size: 14px;
     font-weight: 500;
-    color: #778897;
+    color: $grey;
   }
 }
 
