@@ -1,5 +1,6 @@
 import React from 'react'
 import Axios from 'axios'
+import FileBrowser from './components/file-browser'
 
 class App extends React.Component {
   state = {
@@ -49,6 +50,11 @@ class App extends React.Component {
           <h1>File Browser</h1>
           {loading ? <div class="loader">Loading...</div> :
             <div>
+              <FileBrowser
+                files={data}
+                onChange={(selectedFolders) => this.setState({ selectedFolders })}
+                selectedFolders={this.state.selectedFolders}
+              />
               {!loading && data.length < 1 ? <p>No Files Found!</p> : null}
               <hr></hr>
               <div className="totals">
