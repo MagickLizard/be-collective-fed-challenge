@@ -27,6 +27,7 @@ const FileBrowser = ({ files, selectedFolders, onChange }) => {
       selected={selectedFolders[index]}
       label={files.name}
       type={files.type}
+      size={files.size}
       onChange={() => { handleFileClick(`id-${index}`) }}
      />
      {(files.children && selectedFolders[`id-${index}`]) &&
