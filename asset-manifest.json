@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/be-collective-fed-challenge/static/css/main.a089ca22.chunk.css",
+    "main.js": "/be-collective-fed-challenge/static/js/main.6c99cb60.chunk.js",
+    "main.js.map": "/be-collective-fed-challenge/static/js/main.6c99cb60.chunk.js.map",
+    "runtime-main.js": "/be-collective-fed-challenge/static/js/runtime-main.42729a65.js",
+    "runtime-main.js.map": "/be-collective-fed-challenge/static/js/runtime-main.42729a65.js.map",
+    "static/css/2.06c1fe61.chunk.css": "/be-collective-fed-challenge/static/css/2.06c1fe61.chunk.css",
+    "static/js/2.da7a7437.chunk.js": "/be-collective-fed-challenge/static/js/2.da7a7437.chunk.js",
+    "static/js/2.da7a7437.chunk.js.map": "/be-collective-fed-challenge/static/js/2.da7a7437.chunk.js.map",
+    "index.html": "/be-collective-fed-challenge/index.html",
+    "precache-manifest.e9654e29428cd5de46d93849a4b2f26b.js": "/be-collective-fed-challenge/precache-manifest.e9654e29428cd5de46d93849a4b2f26b.js",
+    "service-worker.js": "/be-collective-fed-challenge/service-worker.js",
+    "static/css/2.06c1fe61.chunk.css.map": "/be-collective-fed-challenge/static/css/2.06c1fe61.chunk.css.map",
+    "static/css/main.a089ca22.chunk.css.map": "/be-collective-fed-challenge/static/css/main.a089ca22.chunk.css.map",
+    "static/js/2.da7a7437.chunk.js.LICENSE.txt": "/be-collective-fed-challenge/static/js/2.da7a7437.chunk.js.LICENSE.txt",
+    "static/media/font-awesome.min.css": "/be-collective-fed-challenge/static/media/fontawesome-webfont.fee66e71.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.42729a65.js",
+    "static/css/2.06c1fe61.chunk.css",
+    "static/js/2.da7a7437.chunk.js",
+    "static/css/main.a089ca22.chunk.css",
+    "static/js/main.6c99cb60.chunk.js"
+  ]
+}
