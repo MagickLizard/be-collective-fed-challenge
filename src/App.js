@@ -8,14 +8,15 @@ class App extends React.Component {
     totalSize: 0,
     fileCount: 0,
     selectedFolders: {},
-    loading: true
+    loading: true,
+    error: false
   }
 
   async componentDidMount() {
     this.setState({ loading: true })
     try {
       const response = await Axios.get('https://chal-locdrmwqia.now.sh/')
-      response.data.data.sort(function (a, b) {
+      response.data.data.sort((a, b) => {
         if (a.type === "folder") {
           return -1
         }
@@ -43,12 +44,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { data, loading, fileCount, totalSize } = this.state
+    const { data, loading, fileCount, totalSize, error } = this.state
     return (
       <div className="container">
-        <div className="wrapper">
-          <h1>File Browser</h1>
-          {loading ? <div class="loader">Loading...</div> :
+        {error ? <h1> Oopsy.. something isn't quite right. Come back later.. </h1> : 
+        <div className="wrapper"> 
+          <h1>File Browser</h1> 
+          {loading ? <div className="loader">Loading...</div> :
             <div>
               <FileBrowser
                 files={data}
@@ -64,6 +66,7 @@ class App extends React.Component {
             </div>
           }
         </div>
+        }
       </div>
     )
   }
