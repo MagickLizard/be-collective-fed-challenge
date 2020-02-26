@@ -1,7 +1,7 @@
 import React from 'react';
 import FileBrowser from './file-browser'
-import { shallow, mount, render } from 'enzyme';
-import { validResponse, invalidFoldersResponse } from '../__mocks/__axios'
+import { shallow, mount } from 'enzyme';
+import { validResponse } from '../__mocks/__axios'
 
 describe('<FileBrowser/>', () => {
     it('Should contain contain values when no props recieved', () => {

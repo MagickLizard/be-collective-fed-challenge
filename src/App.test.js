@@ -1,8 +1,9 @@
 import React from 'react';
 import App from './App';
 import { validResponse, invalidFoldersResponse } from './__mocks/__axios'
-import { shallow, mount, render } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import * as axios from "axios";
+
 jest.mock("axios");
 
 describe('<App/>', () => {

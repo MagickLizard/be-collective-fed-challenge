@@ -23,4 +23,14 @@ const invalidFoldersResponse = {
         }]
     }
 }
-export { validResponse, invalidFoldersResponse }
+const selectedFolders = {}
+const handleClickMock = (selectedfolderId) => {
+    if (selectedFolders[selectedfolderId]) {
+        delete selectedFolders[selectedfolderId];
+    } else {
+        selectedFolders[selectedfolderId] = {}
+    }
+    onChange(selectedFolders)
+}
+
+export { validResponse, invalidFoldersResponse, handleClickMock }
