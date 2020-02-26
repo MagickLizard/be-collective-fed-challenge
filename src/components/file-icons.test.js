@@ -3,7 +3,6 @@ import FileIcons from './file-icons'
 import { shallow, mount, render } from 'enzyme';
 import { validResponse, invalidFoldersResponse, handleClickMock } from '../__mocks/__axios';
 
-
 describe('<FileIcons/>', () => {
     it('Should contain values on load', async () => {
         const folder = validResponse.data.data[0];
@@ -21,7 +20,6 @@ describe('<FileIcons/>', () => {
         expect(wrapper.find('files')).toBeDefined();
         expect(wrapper.find('ul')).toBeDefined();
         expect(wrapper.find('fa files__icon')).toBeDefined();
-
     });
     it('Should have no chevrons down when no folders are selected.', async () => {
         const folder = validResponse.data.data[0];
@@ -38,7 +36,6 @@ describe('<FileIcons/>', () => {
         expect(wrapper).not.toHaveProperty('fa files__icon fa-chevron-down');
     });
     it('Should change chevron to down on selected folder', async () => {
-
         const folder = validResponse.data.data[0];
         const wrapper = shallow(<FileIcons
             selected={folder}

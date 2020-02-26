@@ -6,7 +6,6 @@ const FileBrowser = ({ files, selectedFolders, onChange }) => {
 
  const handleFileClick = (selectedfolderId) => {
   if (selectedFolders[selectedfolderId]) {
-   // remove selected key from files list
    delete selectedFolders[selectedfolderId];
   } else { 
    selectedFolders[selectedfolderId] = {}
