@@ -27,8 +27,8 @@ class App extends React.Component {
       this.setState({ loading: false, error: err })
     }
   }
-  getTotals(files) {
-    files.sort((a, b) => {
+  getTotals(response) {
+    const files = response.sort((a, b) => {
       if (a.type === "folder") {
         return -1
       }

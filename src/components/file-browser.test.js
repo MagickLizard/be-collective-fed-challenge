@@ -6,7 +6,7 @@ import { validResponse, invalidFoldersResponse } from '../__mocks/__axios'
 describe('<FileBrowser/>', () => {
     it('Should contain contain values when no props recieved', () => {
         const selectedFolders = {}
-        const wrapper = shallow(<FileBrowser files={validResponse.data.data} onChange={selectedFolders} selectedFolders={{}} />);
+        const wrapper = mount(<FileBrowser files={validResponse.data.data} onChange={selectedFolders} selectedFolders={{}} />);
         expect(wrapper.find('label')).toBeDefined();
         expect(wrapper.find('size')).toBeDefined();
         expect(wrapper.find('onChange')).toBeDefined();
