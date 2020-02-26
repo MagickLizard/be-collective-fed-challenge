@@ -60,12 +60,12 @@ class App extends React.Component {
             <h1>File Browser</h1>
             {loading ? <div className="loader">Loading...</div> :
               <div>
-                <FileBrowser
-                  files={data}
-                  onChange={(selectedFolders) => this.setState({ selectedFolders })}
-                  selectedFolders={this.state.selectedFolders}
-                />
-                {!loading && data.length < 1 ? <p>No Files Found!</p> : null}
+                {!loading && data.length < 1 ? <p>No Files Found!</p> : (
+                  <FileBrowser
+                    files={data}
+                    onChange={(selectedFolders) => this.setState({ selectedFolders })}
+                    selectedFolders={this.state.selectedFolders}
+                  />)}
                 <hr></hr>
                 <div className="totals">
                   <p>Total Files: {fileCount}</p>
