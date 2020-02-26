@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e940724a8a35b3fc79b59b40f32aa04d",
+    "revision": "0d448f6b5251f30edbcffc011c99c720",
     "url": "/be-collective-fed-challenge/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/be-collective-fed-challenge/static/css/2.06c1fe61.chunk.css"
   },
   {
-    "revision": "f8fc141f5f0ac6d41b05",
+    "revision": "54ed21dae420f7bded1a",
     "url": "/be-collective-fed-challenge/static/css/main.a089ca22.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/be-collective-fed-challenge/static/js/2.da7a7437.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "f8fc141f5f0ac6d41b05",
-    "url": "/be-collective-fed-challenge/static/js/main.de57ea15.chunk.js"
+    "revision": "54ed21dae420f7bded1a",
+    "url": "/be-collective-fed-challenge/static/js/main.50376bee.chunk.js"
   },
   {
     "revision": "f132241ae372d383fa9f",
