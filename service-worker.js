@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/be-collective-fed-challenge/precache-manifest.e9654e29428cd5de46d93849a4b2f26b.js"
+  "/be-collective-fed-challenge/precache-manifest.e5463d8c61bf6a1e9f1131a78f7eef95.js"
 );
 
 self.addEventListener('message', (event) => {
