@@ -24,12 +24,18 @@ describe('<App/>', () => {
   it('ComponentDidMount - should fetch files and state results should exist', async () => {
     const stateResult = {
       data: [
-        { type: 'folder', name: '1080p', children: [] },
+        {
+          type: 'folder', name: '1080p', children: [{
+            "name": "children.pdf",
+            "size": 76034,
+            "type": "file"
+          }]
+        },
         { type: 'folder', name: 'wireless', children: [] },
         { type: 'file', name: 'borders_orchard_kroon.pdf', size: 76034 }
       ],
-      totalSize: 152068,
-      fileCount: 2,
+      totalSize: 304136,
+      fileCount: 4,
       selectedFolders: {},
       loading: false,
       error: false
@@ -95,7 +101,6 @@ describe('<App/>', () => {
   it('calculateTotals() - (file) maintain initial state when no matching data found.', async () => {
     const wrapper = shallow(<App />);
     await wrapper.instance().calculateTotals([{ type: "file" }])
-
     expect(wrapper.find('.container')).toBeDefined();
     expect(wrapper.state('error')).toEqual(false);
     expect(wrapper.state('totalSize')).toEqual(0);

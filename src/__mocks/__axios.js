@@ -3,7 +3,7 @@ const validResponse = {
         data: [{
             type: 'folder',
             name: '1080p',
-            children: []
+            children: [{ type: 'file', name: 'children.pdf', size: 76034 }]
         },
         { type: 'file', name: 'borders_orchard_kroon.pdf', size: 76034 },
         {
