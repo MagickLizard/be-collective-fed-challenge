@@ -27,6 +27,7 @@ class App extends React.Component {
       this.setState({ loading: false, error: err })
     }
   }
+
   getTotals(response) {
     const files = response.sort((a, b) => {
       if (a.type === "folder") {
@@ -41,7 +42,7 @@ class App extends React.Component {
   }
 
   calculateTotals(data) {
-    data.map(item => {
+    return data.map(item => {
       if (item.type === "file" && item.size) {
         this.setState((prevState) => ({ fileCount: prevState.fileCount + 1, totalSize: prevState.totalSize + item.size }))
       }
