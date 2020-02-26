@@ -2,10 +2,12 @@ import React from 'react';
 import App from './App';
 import FileBrowser from './components/file-browser'
 import { shallow, mount, render } from 'enzyme';
-
+import * as axios from "axios";
+jest.mock("axios");
 
 describe('<App/>', () => {
-  it('Values on load', async () => {
+
+  it('Should have values on load', async () => {
     const wrapper = shallow(<App />);
     expect(wrapper.state('totalSize')).toEqual(0);
     expect(wrapper.find('.container')).toBeDefined();
@@ -13,37 +15,135 @@ describe('<App/>', () => {
     expect(wrapper.state('loading')).toBe(true)
   });
 
-  it('On componentDidMount data should exist', async () => {
-    const wrapper = shallow(<App />);
-    await wrapper.instance().componentDidMount()
-    expect(wrapper.find('.wrapper')).toBeDefined();
-    expect(wrapper.state('loading')).toBe(false);
-    expect(wrapper.state('totalSize')).toBeGreaterThan(0);
-    expect(wrapper.state('data').length).toBeGreaterThan(0);
+  it('Expect componentDidMount to exist', async () => {
+    jest.spyOn(App.prototype, 'componentDidMount');
+    mount(<App />);
+    expect(App.prototype.componentDidMount).toHaveBeenCalledTimes(1)
   });
 
-  it('Should calculateTotals and update state', async () => {
+  it('ComponentDidMount - should fetch files and state results should exist', async () => {
+    const apiResponse = {
+      data: {
+        data: [{
+          type: 'folder',
+          name: '1080p',
+          children: []
+        },
+        { type: 'file', name: 'borders_orchard_kroon.pdf', size: 76034 },
+        {
+          type: 'folder',
+          name: 'wireless',
+          children: []
+        }]
+      }
+    }
+    const stateResult = {
+      data: [
+        { type: 'folder', name: '1080p', children: [] },
+        { type: 'folder', name: 'wireless', children: [] },
+        { type: 'file', name: 'borders_orchard_kroon.pdf', size: 76034 }
+      ],
+      totalSize: 152068,
+      fileCount: 2,
+      selectedFolders: {},
+      loading: false,
+      error: false
+    }
+    axios.get.mockResolvedValue(apiResponse);
     const wrapper = shallow(<App />);
-    const fixtureOfApiResponse = [ { type: 'folder',
-    name: '1080p',
-    children: [] },
-  { type: 'file', name: 'borders_orchard_kroon.pdf', size: 76034 },
-  { type: 'folder',
-    name: 'wireless',
-    children: [] } ]
+    await wrapper.instance().componentDidMount()
+    expect(wrapper.state()).toEqual(stateResult);
+  });
 
-     await wrapper.instance().calculateTotals(fixtureOfApiResponse)
+  it('ComponentDidMount - should fetch files and update data only state', async () => {
+    const apiResponse = {
+      data: {
+        data: [{
+          type: 'folder'
+        },
+        {
+          type: 'folder'
+        }]
+      }
+    }
+    const stateResult = {
+      data: [{ type: 'folder' }, { type: 'folder' }],
+      totalSize: 0,
+      fileCount: 0,
+      selectedFolders: {},
+      loading: false,
+      error: false
+    }
+    axios.get.mockResolvedValue(apiResponse);
+    const wrapper = shallow(<App />);
+    await wrapper.instance().componentDidMount()
+    expect(wrapper.state()).toEqual(stateResult);
+  });
 
+  it('ComponentDidMount - Should handle errors from the api gracefully', async () => {
+    const stateResult = {
+      data: [],
+      totalSize: 0,
+      fileCount: 0,
+      selectedFolders: {},
+      loading: false,
+      error: "network error"
+    }
+    axios.get.mockResolvedValue({});
+    const wrapper = shallow(<App />);
+    await wrapper.instance().componentDidMount()
+    expect(wrapper.state()).toEqual(stateResult);
+  });
+  it('ComponentDidMount - Should handle status 500 from api', async () => {
+    const apiResponse = {data: {}, status: 500}
+    const stateResult = {
+      data: [],
+      totalSize: 0,
+      fileCount: 0,
+      selectedFolders: {},
+      loading: false,
+      error: "network error"
+    }
+    axios.get.mockResolvedValue({});
+    const wrapper = shallow(<App />);
+    await wrapper.instance().componentDidMount()
+    expect(wrapper.state()).toEqual(stateResult);
+  });
+
+  it('Should calculate total and update state', async () => {
+    const wrapper = shallow(<App />);
+    const fixtureOfApiResponse = [{
+      type: 'folder',
+      name: '1080p',
+      children: []
+    },
+    { type: 'file', name: 'borders_orchard_kroon.pdf', size: 76034 },
+    {
+      type: 'folder',
+      name: 'wireless',
+      children: []
+    }]
+
+    await wrapper.instance().calculateTotals(fixtureOfApiResponse);
     expect(wrapper.find('.container')).toBeDefined();
     expect(wrapper.state('data')).toBeDefined();
     expect(wrapper.state('totalSize')).toBeGreaterThan(0);
   });
-  it('Should try to calculateTotals() when data is bad', async () => {
+  it('calculateTotals() - (file) maintain initial state when no matching data found.', async () => {
     const wrapper = shallow(<App />);
-     await wrapper.instance().calculateTotals([{type: "file"}])
-console.log('wrapper.instance()>>',wrapper.instance())
+    await wrapper.instance().calculateTotals([{ type: "file" }])
 
     expect(wrapper.find('.container')).toBeDefined();
-    expect(wrapper.state('error')).toBeDefined();
+    expect(wrapper.state('error')).toEqual(false);
+    expect(wrapper.state('totalSize')).toEqual(0);
+    expect(wrapper.state('fileCount')).toEqual(0);
+  });
+  it('calculateTotals() - (folder) maintain initial state when no matching data found.', async () => {
+    const wrapper = shallow(<App />);
+    await wrapper.instance().calculateTotals([{ type: "folder" }])
+    expect(wrapper.find('.container')).toBeDefined();
+    expect(wrapper.state('error')).toEqual(false);
+    expect(wrapper.state('totalSize')).toEqual(0);
+    expect(wrapper.state('fileCount')).toEqual(0);
   });
 });
