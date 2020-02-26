@@ -1,6 +1,6 @@
 import React from 'react';
 import App from './App';
-import FileBrowser from './components/file-browser'
+import { validResponse, invalidFoldersResponse } from './__mocks/__axios'
 import { shallow, mount, render } from 'enzyme';
 import * as axios from "axios";
 jest.mock("axios");
@@ -22,21 +22,6 @@ describe('<App/>', () => {
   });
 
   it('ComponentDidMount - should fetch files and state results should exist', async () => {
-    const apiResponse = {
-      data: {
-        data: [{
-          type: 'folder',
-          name: '1080p',
-          children: []
-        },
-        { type: 'file', name: 'borders_orchard_kroon.pdf', size: 76034 },
-        {
-          type: 'folder',
-          name: 'wireless',
-          children: []
-        }]
-      }
-    }
     const stateResult = {
       data: [
         { type: 'folder', name: '1080p', children: [] },
@@ -49,23 +34,13 @@ describe('<App/>', () => {
       loading: false,
       error: false
     }
-    axios.get.mockResolvedValue(apiResponse);
+    axios.get.mockResolvedValue(validResponse);
     const wrapper = shallow(<App />);
     await wrapper.instance().componentDidMount()
     expect(wrapper.state()).toEqual(stateResult);
   });
 
   it('ComponentDidMount - should fetch files and update data only state', async () => {
-    const apiResponse = {
-      data: {
-        data: [{
-          type: 'folder'
-        },
-        {
-          type: 'folder'
-        }]
-      }
-    }
     const stateResult = {
       data: [{ type: 'folder' }, { type: 'folder' }],
       totalSize: 0,
@@ -74,7 +49,7 @@ describe('<App/>', () => {
       loading: false,
       error: false
     }
-    axios.get.mockResolvedValue(apiResponse);
+    axios.get.mockResolvedValue(invalidFoldersResponse);
     const wrapper = shallow(<App />);
     await wrapper.instance().componentDidMount()
     expect(wrapper.state()).toEqual(stateResult);
@@ -95,7 +70,7 @@ describe('<App/>', () => {
     expect(wrapper.state()).toEqual(stateResult);
   });
   it('ComponentDidMount - Should handle status 500 from api', async () => {
-    const apiResponse = {data: {}, status: 500}
+    const apiResponse = { data: {}, status: 500 };
     const stateResult = {
       data: [],
       totalSize: 0,
@@ -104,7 +79,7 @@ describe('<App/>', () => {
       loading: false,
       error: "network error"
     }
-    axios.get.mockResolvedValue({});
+    axios.get.mockResolvedValue(apiResponse);
     const wrapper = shallow(<App />);
     await wrapper.instance().componentDidMount()
     expect(wrapper.state()).toEqual(stateResult);
@@ -112,19 +87,7 @@ describe('<App/>', () => {
 
   it('Should calculate total and update state', async () => {
     const wrapper = shallow(<App />);
-    const fixtureOfApiResponse = [{
-      type: 'folder',
-      name: '1080p',
-      children: []
-    },
-    { type: 'file', name: 'borders_orchard_kroon.pdf', size: 76034 },
-    {
-      type: 'folder',
-      name: 'wireless',
-      children: []
-    }]
-
-    await wrapper.instance().calculateTotals(fixtureOfApiResponse);
+    await wrapper.instance().calculateTotals(validResponse.data.data);
     expect(wrapper.find('.container')).toBeDefined();
     expect(wrapper.state('data')).toBeDefined();
     expect(wrapper.state('totalSize')).toBeGreaterThan(0);
@@ -140,7 +103,7 @@ describe('<App/>', () => {
   });
   it('calculateTotals() - (folder) maintain initial state when no matching data found.', async () => {
     const wrapper = shallow(<App />);
-    await wrapper.instance().calculateTotals([{ type: "folder" }])
+    await wrapper.instance().calculateTotals(invalidFoldersResponse.data.data)
     expect(wrapper.find('.container')).toBeDefined();
     expect(wrapper.state('error')).toEqual(false);
     expect(wrapper.state('totalSize')).toEqual(0);
